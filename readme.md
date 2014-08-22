@@ -31,7 +31,7 @@ For more information on what `generator-intweb` can do for you, take a look at t
 
 - Install: `npm install -g git+ssh://git@github.com:intridea/generator-intweb.git`
 - Run: `yo intweb`
-- Run `grunt` for building and `grunt serve` for preview[*](#serve-note). `--allow-remote` option for remote access.
+- Run `grunt` for building and `grunt serve` for preview[*](#grunt-serve-note). `--allow-remote` option for remote access.
 
 
 #### Third-Party Dependencies
