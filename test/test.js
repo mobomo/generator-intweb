@@ -202,5 +202,87 @@ describe('Webapp generator', function () {
         done();
       });
     });
+
+    it('uses jQuery version 2 by default', function (done) {
+      runGen.withOptions(options).withPrompt({
+        features: ['includeJQuery']
+      }).on('end', function () {
+
+        assert.fileContent([
+          ['bower.json', /\"jquery\":\s\">=\s2\./]
+        ]);
+
+        done();
+      });
+    });
+
+    it('use jQuery version 2 for Bootstrap by default', function (done) {
+      runGen.withOptions(options).withPrompt({
+        features: ['includeBootstrap']
+      }).on('end', function () {
+
+        assert.fileContent([
+          ['bower.json', /\"jquery\":\s\">=\s2\./]
+        ]);
+
+        done();
+      });
+    });
+
+    it('uses jQuery version 2 when not supporting IE9', function (done) {
+      runGen.withOptions(options).withPrompt({
+        features: ['includeJQuery'],
+        ie9: false
+      }).on('end', function () {
+
+        assert.fileContent([
+          ['bower.json', /\"jquery\":\s\">=\s2\./]
+        ]);
+
+        done();
+      });
+    });
+
+    it('uses jQuery version 2 for Bootstrap when not supporting IE9', function (done) {
+      runGen.withOptions(options).withPrompt({
+        features: ['includeBootstrap'],
+        ie9: false
+      }).on('end', function () {
+
+        assert.fileContent([
+          ['bower.json', /\"jquery\":\s\">=\s2\./]
+        ]);
+
+        done();
+      });
+    });
+
+    it('uses jQuery version 1 for IE9', function (done) {
+      runGen.withOptions(options).withPrompt({
+        features: ['includeJQuery'],
+        ie9: true
+      }).on('end', function () {
+
+        assert.fileContent([
+          ['bower.json', /\"jquery\":\s\"\~1\./]
+        ]);
+
+        done();
+      });
+    });
+
+    it('uses jQuery version 1 for IE9 for Bootstrap', function (done) {
+      runGen.withOptions(options).withPrompt({
+        features: ['includeBootstrap'],
+        ie9: true
+      }).on('end', function () {
+
+        assert.fileContent([
+          ['bower.json', /\"jquery\":\s\"\~1\./]
+        ]);
+
+        done();
+      });
+    });
   });
 });
