@@ -1,4 +1,10 @@
-# Web app generator [![Build Status](https://secure.travis-ci.org/yeoman/generator-webapp.svg?branch=master)](http://travis-ci.org/yeoman/generator-webapp)
+# NOTE
+
+This is a fork of the Yeoman WebApp generator that's currently under development. It should be treated like beta software (in that there's a chance it may break).
+
+As such, it's not available on NPM. To install it, you can do so directly from GitHub (see below), and then you will have the latest version.
+
+# Web app generator [![Build Status](https://secure.travis-ci.org/intridea/generator-intweb.svg?branch=master)](http://travis-ci.org/intridea/generator-intweb)
 
 [Yeoman](http://yeoman.io) generator that scaffolds out a front-end web app.
 
@@ -13,16 +19,17 @@
 * Automagically wire up your Bower components with [grunt-wiredep](#third-party-dependencies).
 * Awesome Image Optimization (via OptiPNG, pngquant, jpegtran and gifsicle)
 * Mocha Unit Testing with PhantomJS
+* jQuery (Optional)
 * Bootstrap for Sass (Optional)
 * Leaner Modernizr builds (Optional)
 
-For more information on what `generator-webapp` can do for you, take a look at the [Grunt tasks](https://github.com/yeoman/generator-webapp/blob/master/app/templates/_package.json) used in our `package.json`.
+For more information on what `generator-intweb` can do for you, take a look at the [Grunt tasks](https://github.com/intridea/generator-intweb/blob/master/app/templates/_package.json) used in our `package.json`.
 
 
 ## Getting Started
 
-- Install: `npm install -g generator-webapp`
-- Run: `yo webapp`
+- Install: `npm install -g git+ssh://git@github.com:intridea/generator-intweb.git`
+- Run: `yo intweb`
 - Run `grunt` for building and `grunt serve` for preview[*](#serve-note). `--allow-remote` option for remote access.
 
 
@@ -72,7 +79,7 @@ See the [contributing docs](https://github.com/yeoman/yeoman/blob/master/contrib
 
 Note: We are regularly asked whether we can add or take away features. If a change is good enough to have a positive impact on all users, we are happy to consider it.
 
-If not, `generator-webapp` is fork-friendly and you can always maintain a custom version which you `npm install && npm link` to continue using via `yo webapp` or a name of your choosing.
+If not, `generator-intweb` is fork-friendly and you can always maintain a custom version which you `npm install && npm link` to continue using via `yo intweb` or a name of your choosing.
 
 
 ## License
