@@ -71,7 +71,7 @@ Note: `grunt server` was used for previewing in earlier versions of the project,
 
 * `--coffee`
 
-  Add support for [CoffeeScript](http://coffeescript.org/).
+  Add support for [CoffeeScript](http://coffeescript.org/). Defaults to true (you can disable it by running `--coffee=false`).
 
 
 ## Contribute
