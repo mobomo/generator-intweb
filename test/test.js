@@ -52,16 +52,15 @@ describe('Webapp generator', function () {
         assert.file([].concat(
           expected,
           'app/styles/main.css',
-          'app/scripts/main.js'
+          'app/scripts/main.coffee'
         ));
         assert.noFile([
           'app/styles/main.scss',
-          'app/scripts/main.coffee'
+          'app/scripts/main.js'
         ]);
 
         assert.fileContent(expectedContent);
         assert.noFileContent([
-          ['Gruntfile.js', /coffee/],
           ['Gruntfile.js', /modernizr/],
           ['app/index.html', /modernizr/],
           ['bower.json', /modernizr/],
@@ -98,6 +97,25 @@ describe('Webapp generator', function () {
           [['Gruntfile.js', /coffee/]]
         ));
 
+        done();
+      });
+    });
+
+    it('excludes CoffeeScript files', function (done) {
+      runGen.withOptions(
+        _.extend(options, {coffee: false})
+      ).on('end', function () {
+
+        assert.file([].concat(
+          expected,
+          'app/scripts/main.js'
+        ));
+        assert.noFile('app/scripts/main.coffee');
+
+        assert.fileContent(expectedContent);
+        assert.noFileContent([
+          ['Gruntfile.js', /coffee/]
+        ]);
         done();
       });
     });
@@ -179,6 +197,88 @@ describe('Webapp generator', function () {
           ['Gruntfile.js', /bootstrap-sass-official/],
           ['app/index.html', /Sass is a mature/],
           ['bower.json', /bootstrap-sass-official/]
+        ]);
+
+        done();
+      });
+    });
+
+    it('uses jQuery version 2 by default', function (done) {
+      runGen.withOptions(options).withPrompt({
+        features: ['includeJQuery']
+      }).on('end', function () {
+
+        assert.fileContent([
+          ['bower.json', /\"jquery\":\s\">=\s2\./]
+        ]);
+
+        done();
+      });
+    });
+
+    it('use jQuery version 2 for Bootstrap by default', function (done) {
+      runGen.withOptions(options).withPrompt({
+        features: ['includeBootstrap']
+      }).on('end', function () {
+
+        assert.fileContent([
+          ['bower.json', /\"jquery\":\s\">=\s2\./]
+        ]);
+
+        done();
+      });
+    });
+
+    it('uses jQuery version 2 when not supporting IE9', function (done) {
+      runGen.withOptions(options).withPrompt({
+        features: ['includeJQuery'],
+        ie9: false
+      }).on('end', function () {
+
+        assert.fileContent([
+          ['bower.json', /\"jquery\":\s\">=\s2\./]
+        ]);
+
+        done();
+      });
+    });
+
+    it('uses jQuery version 2 for Bootstrap when not supporting IE9', function (done) {
+      runGen.withOptions(options).withPrompt({
+        features: ['includeBootstrap'],
+        ie9: false
+      }).on('end', function () {
+
+        assert.fileContent([
+          ['bower.json', /\"jquery\":\s\">=\s2\./]
+        ]);
+
+        done();
+      });
+    });
+
+    it('uses jQuery version 1 for IE9', function (done) {
+      runGen.withOptions(options).withPrompt({
+        features: ['includeJQuery'],
+        ie9: true
+      }).on('end', function () {
+
+        assert.fileContent([
+          ['bower.json', /\"jquery\":\s\"\~1\./]
+        ]);
+
+        done();
+      });
+    });
+
+    it('uses jQuery version 1 for IE9 for Bootstrap', function (done) {
+      runGen.withOptions(options).withPrompt({
+        features: ['includeBootstrap'],
+        ie9: true
+      }).on('end', function () {
+
+        assert.fileContent([
+          ['bower.json', /\"jquery\":\s\"\~1\./]
         ]);
 
         done();
