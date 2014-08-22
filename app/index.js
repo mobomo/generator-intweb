@@ -70,6 +70,17 @@ module.exports = yeoman.generators.Base.extend({
       message: 'Would you like to use libsass? Read up more at \n' +
         chalk.green('https://github.com/andrew/node-sass#node-sass'),
       default: false
+    }, {
+      when: function (answers) {
+        return answers && answers.features &&
+          (answers.features.indexOf('includeJQuery') !== -1 ||
+           answers.features.indexOf('includeBootstrap') !== -1 );
+      },
+      type: 'confirm',
+      name: 'ie9',
+      value: 'supportIE9',
+      message: 'Do you need to support IE 9?',
+      default: false
     }];
 
     this.prompt(prompts, function (answers) {
@@ -83,6 +94,8 @@ module.exports = yeoman.generators.Base.extend({
       this.includeBootstrap = hasFeature('includeBootstrap');
       this.includeJQuery = hasFeature('includeJQuery') || this.includeBootstrap;
       this.includeModernizr = hasFeature('includeModernizr');
+
+      this.supportIE9 = answers.ie9;
 
       this.includeLibSass = answers.libsass;
       this.includeRubySass = !answers.libsass;
@@ -111,13 +124,13 @@ module.exports = yeoman.generators.Base.extend({
       dependencies: {}
     };
 
+    if (this.includeJQuery || this.includeBootstrap) {
+      bower.dependencies.jquery = this.supportIE9 ? "~1.11.1" : ">= 2.1.1";
+    }
+
     if (this.includeBootstrap) {
       var bs = 'bootstrap' + (this.includeSass ? '-sass-official' : '');
       bower.dependencies[bs] = "~3.2.0";
-    }
-
-    if (this.includeJQuery && !this.includeBootstrap) { // Bootstrap brings jQuery as a dependency
-      bower.dependencies.jquery = "~1.11.1";
     }
 
     if (this.includeModernizr) {
