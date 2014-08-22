@@ -19,7 +19,7 @@ module.exports = yeoman.generators.Base.extend({
     this.option('coffee', {
       desc: 'Use CoffeeScript',
       type: Boolean,
-      defaults: false
+      defaults: true
     });
     this.coffee = this.options.coffee;
 
@@ -33,8 +33,8 @@ module.exports = yeoman.generators.Base.extend({
     if (!this.options['skip-welcome-message']) {
       this.log(require('yosay')());
       this.log(chalk.magenta(
-        'Out of the box I include HTML5 Boilerplate, jQuery, and a ' +
-        'Gruntfile.js to build your app.'
+        'Out of the box I include HTML5 Boilerplate, and a ' +
+        'Gruntfile.js to build your app. I also default to using CoffeeScript.'
       ));
     }
 
@@ -43,21 +43,25 @@ module.exports = yeoman.generators.Base.extend({
       name: 'features',
       message: 'What more would you like?',
       choices: [{
-        name: 'Bootstrap',
-        value: 'includeBootstrap',
-        checked: true
-      },{
         name: 'Sass',
         value: 'includeSass',
-        checked: false
+        checked: true
       },{
         name: 'Modernizr',
         value: 'includeModernizr',
+        checked: true
+      },{
+        name: 'jQuery',
+        value: 'includeJQuery',
+        checked: false
+      },{
+        name: 'Bootstrap (will include jQuery)',
+        value: 'includeBootstrap',
         checked: false
       }]
     }, {
       when: function (answers) {
-        return answers && answers.feature &&
+        return answers && answers.features &&
           answers.features.indexOf('includeSass') !== -1;
       },
       type: 'confirm',
@@ -77,6 +81,7 @@ module.exports = yeoman.generators.Base.extend({
 
       this.includeSass = hasFeature('includeSass');
       this.includeBootstrap = hasFeature('includeBootstrap');
+      this.includeJQuery = hasFeature('includeJQuery') || this.includeBootstrap;
       this.includeModernizr = hasFeature('includeModernizr');
 
       this.includeLibSass = answers.libsass;
@@ -109,7 +114,9 @@ module.exports = yeoman.generators.Base.extend({
     if (this.includeBootstrap) {
       var bs = 'bootstrap' + (this.includeSass ? '-sass-official' : '');
       bower.dependencies[bs] = "~3.2.0";
-    } else {
+    }
+
+    if (this.includeJQuery && !this.includeBootstrap) { // Bootstrap brings jQuery as a dependency
       bower.dependencies.jquery = "~1.11.1";
     }
 
