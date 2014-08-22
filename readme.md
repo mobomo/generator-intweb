@@ -1,14 +1,15 @@
-# NOTE
-
-This is a fork of the Yeoman WebApp generator that's currently under development. It should be treated like beta software (in that there's a chance it may break).
-
-As such, it's not available on NPM. To install it, you can do so directly from GitHub (see below), and then you will have the latest version.
-
 # Web app generator
 
 [Yeoman](http://yeoman.io) generator that scaffolds out a front-end web app.
 
 ![](http://i.imgur.com/uKTT2Hj.png)
+
+## Important Note
+
+This is a fork of the [Yeoman web app generator](https://github.com/yeoman/generator-webapp) that's currently under development. It should be treated like beta software (in that there's a chance it may break).
+
+As such, it's not available on NPM. To install it, you can do so directly from GitHub (see below), and then you will have the latest version.
+
 
 ## Features
 
