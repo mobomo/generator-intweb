@@ -52,16 +52,15 @@ describe('Webapp generator', function () {
         assert.file([].concat(
           expected,
           'app/styles/main.css',
-          'app/scripts/main.js'
+          'app/scripts/main.coffee'
         ));
         assert.noFile([
           'app/styles/main.scss',
-          'app/scripts/main.coffee'
+          'app/scripts/main.js'
         ]);
 
         assert.fileContent(expectedContent);
         assert.noFileContent([
-          ['Gruntfile.js', /coffee/],
           ['Gruntfile.js', /modernizr/],
           ['app/index.html', /modernizr/],
           ['bower.json', /modernizr/],
@@ -98,6 +97,25 @@ describe('Webapp generator', function () {
           [['Gruntfile.js', /coffee/]]
         ));
 
+        done();
+      });
+    });
+
+    it('excludes CoffeeScript files', function (done) {
+      runGen.withOptions(
+        _.extend(options, {coffee: false})
+      ).on('end', function () {
+
+        assert.file([].concat(
+          expected,
+          'app/scripts/main.js'
+        ));
+        assert.noFile('app/scripts/main.coffee');
+
+        assert.fileContent(expectedContent);
+        assert.noFileContent([
+          ['Gruntfile.js', /coffee/]
+        ]);
         done();
       });
     });
