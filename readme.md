@@ -4,7 +4,7 @@ This is a fork of the Yeoman WebApp generator that's currently under development
 
 As such, it's not available on NPM. To install it, you can do so directly from GitHub (see below), and then you will have the latest version.
 
-# Web app generator [![Build Status](https://secure.travis-ci.org/intridea/generator-intweb.svg?branch=master)](http://travis-ci.org/intridea/generator-intweb)
+# Web app generator
 
 [Yeoman](http://yeoman.io) generator that scaffolds out a front-end web app.
 
