@@ -153,11 +153,19 @@ module.exports = yeoman.generators.Base.extend({
   },
 
   app: function () {
+    var mkdir = this.mkdir.bind(this),
+        write = this.write.bind(this);
+
     this.directory('app');
     this.mkdir('app/scripts');
     this.mkdir('app/styles');
     this.mkdir('app/images');
     this.write('app/index.html', this.indexFile);
+
+    ['components', 'core', 'structures'].forEach(function (dir) {
+      mkdir('app/styles/' + dir);
+      write('app/styles/' + dir + '/.gitkeep', '');
+    });
 
     if (this.coffee) {
       this.write(

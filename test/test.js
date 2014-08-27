@@ -56,6 +56,9 @@ describe('Webapp generator', function () {
         assert.file([].concat(
           expected,
           'app/styles/application.scss',
+          'app/styles/components/.gitkeep',
+          'app/styles/core/.gitkeep',
+          'app/styles/structures/.gitkeep',
           'app/scripts/application.coffee'
         ));
         assert.noFile([
