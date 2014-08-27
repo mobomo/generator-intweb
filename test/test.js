@@ -62,7 +62,7 @@ describe('Webapp generator', function () {
           'app/scripts/application.coffee'
         ));
         assert.noFile([
-          'app/styles/main.css',
+          'app/styles/application.css',
           'app/scripts/application.js'
         ]);
 

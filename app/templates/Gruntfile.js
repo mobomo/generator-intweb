@@ -199,7 +199,7 @@ module.exports = function (grunt) {
         files: [{
           expand: true,
           cwd: '<%%= config.app %>/styles',
-          src: ['*.{scss,sass}'],
+          src: ['{,*/}*.{scss,sass}'],
           dest: '.tmp/styles',
           ext: '.css'
         }]
@@ -208,7 +208,7 @@ module.exports = function (grunt) {
         files: [{
           expand: true,
           cwd: '<%%= config.app %>/styles',
-          src: ['*.{scss,sass}'],
+          src: ['{,*/}*.{scss,sass}'],
           dest: '.tmp/styles',
           ext: '.css'
         }]
@@ -328,7 +328,7 @@ module.exports = function (grunt) {
     // cssmin: {
     //   dist: {
     //     files: {
-    //       '<%%= config.dist %>/styles/main.css': [
+    //       '<%%= config.dist %>/styles/application.css': [
     //         '.tmp/styles/{,*/}*.css',
     //         '<%%= config.app %>/styles/{,*/}*.css'
     //       ]
