@@ -55,12 +55,12 @@ describe('Webapp generator', function () {
 
         assert.file([].concat(
           expected,
-          'app/styles/main.scss',
-          'app/scripts/main.coffee'
+          'app/styles/application.scss',
+          'app/scripts/application.coffee'
         ));
         assert.noFile([
           'app/styles/main.css',
-          'app/scripts/main.js'
+          'app/scripts/application.js'
         ]);
 
         assert.fileContent(expectedContent);
@@ -84,9 +84,9 @@ describe('Webapp generator', function () {
 
         assert.file([].concat(
           expected,
-          'app/scripts/main.coffee'
+          'app/scripts/application.coffee'
         ));
-        assert.noFile('app/scripts/main.js');
+        assert.noFile('app/scripts/application.js');
 
         assert.fileContent([].concat(
           expectedContent,
@@ -104,9 +104,9 @@ describe('Webapp generator', function () {
 
         assert.file([].concat(
           expected,
-          'app/scripts/main.js'
+          'app/scripts/application.js'
         ));
-        assert.noFile('app/scripts/main.coffee');
+        assert.noFile('app/scripts/application.coffee');
 
         assert.fileContent(expectedContent);
         assert.noFileContent([

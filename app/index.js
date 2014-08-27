@@ -133,7 +133,7 @@ module.exports = yeoman.generators.Base.extend({
   },
 
   mainStylesheet: function () {
-    var css = 'main.scss';
+    var css = 'application.scss';
     this.template(css, 'app/styles/' + css);
   },
 
@@ -146,8 +146,8 @@ module.exports = yeoman.generators.Base.extend({
     this.indexFile = this.appendFiles({
       html: this.indexFile,
       fileType: 'js',
-      optimizedPath: 'scripts/main.js',
-      sourceFileList: ['scripts/main.js'],
+      optimizedPath: 'scripts/application.js',
+      sourceFileList: ['scripts/application.js'],
       searchPath: ['app', '.tmp']
     });
   },
@@ -161,12 +161,12 @@ module.exports = yeoman.generators.Base.extend({
 
     if (this.coffee) {
       this.write(
-        'app/scripts/main.coffee',
+        'app/scripts/application.coffee',
         'console.log "\'Allo from CoffeeScript!"'
       );
     }
     else {
-      this.write('app/scripts/main.js', 'console.log(\'\\\'Allo \\\'Allo!\');');
+      this.write('app/scripts/application.js', 'console.log(\'\\\'Allo \\\'Allo!\');');
     }
   },
 
