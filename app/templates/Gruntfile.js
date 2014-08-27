@@ -33,7 +33,7 @@ module.exports = function (grunt) {
       bower: {
         files: ['bower.json'],
         tasks: ['wiredep']
-      },
+      },<% if (coffee) { %>
       coffee: {
         files: ['<%%= config.app %>/scripts/{,*/}*.{coffee,litcoffee,coffee.md}'],
         tasks: ['coffee:dist']
@@ -41,7 +41,18 @@ module.exports = function (grunt) {
       coffeeTest: {
         files: ['test/spec/{,*/}*.{coffee,litcoffee,coffee.md}'],
         tasks: ['coffee:test', 'test:watch']
+      },<% } else { %>
+      js: {
+        files: ['<%%= config.app %>/scripts/{,*/}*.js'],
+        tasks: ['jshint'],
+        options: {
+          livereload: true
+        }
       },
+      jstest: {
+        files: ['test/spec/{,*/}*.js'],
+        tasks: ['test:watch']
+      },<% } %>
       gruntfile: {
         files: ['Gruntfile.js']
       },
@@ -59,8 +70,8 @@ module.exports = function (grunt) {
         },
         files: [
           '<%%= config.app %>/{,*/}*.html',
-          '.tmp/styles/{,*/}*.css',
-          '.tmp/scripts/{,*/}*.js',
+          '.tmp/styles/{,*/}*.css',<% if (coffee) { %>
+          '.tmp/scripts/{,*/}*.js',<% } %>
           '<%%= config.app %>/images/{,*/}*'
         ]
       }
@@ -154,7 +165,7 @@ module.exports = function (grunt) {
           specs: 'test/spec/{,*/}*.js'
         }
       }
-    },<% } %>
+    },<% } %><% if (coffee) { %>
 
     // Compiles CoffeeScript to JavaScript
     coffee: {
@@ -176,7 +187,7 @@ module.exports = function (grunt) {
           ext: '.js'
         }]
       }
-    },
+    },<% } %>
 
     // Compiles Sass to CSS and generates necessary files if requested
     sass: {
@@ -391,16 +402,16 @@ module.exports = function (grunt) {
     // Run some tasks in parallel to speed up build process
     concurrent: {
       server: [
-        'sass:server',
-        'coffee:dist',
+        'sass:server',<% if (coffee) { %>
+        'coffee:dist',<% } %>
         'copy:styles'
       ],
-      test: [
-        'coffee',
+      test: [<% if (coffee) { %>
+        'coffee',<% } %>
         'copy:styles'
       ],
-      dist: [
-        'coffee',
+      dist: [<% if (coffee) { %>
+        'coffee',<% } %>
         'sass',
         'copy:styles',
         'imagemin',

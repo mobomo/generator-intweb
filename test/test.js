@@ -97,6 +97,25 @@ describe('Webapp generator', function () {
       });
     });
 
+    it('excludes CoffeeScript files', function (done) {
+      runGen.withOptions(
+        _.extend(options, {coffee: false})
+      ).on('end', function () {
+
+        assert.file([].concat(
+          expected,
+          'app/scripts/main.js'
+        ));
+        assert.noFile('app/scripts/main.coffee');
+
+        assert.fileContent(expectedContent);
+        assert.noFileContent([
+          ['Gruntfile.js', /coffee/]
+        ]);
+        done();
+      });
+    });
+
     it('creates expected modernizr components', function (done) {
       runGen.withOptions(options).withPrompt({features: ['includeModernizr']})
       .on('end', function () {
