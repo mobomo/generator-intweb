@@ -15,8 +15,12 @@ describe('Webapp generator', function () {
   describe('run test', function () {
 
     var expectedContent = [
+      ['.gitignore', /\.sass-cache/],
+      ['app/index.html', /Sass/],
       ['bower.json', /"name": "tmp"/],
-      ['package.json', /"name": "tmp"/]
+      ['Gruntfile.js', /sass/],
+      ['package.json', /"name": "tmp"/],
+      ['package.json', /grunt-contrib-sass/],
     ];
     var expected = [
       '.editorconfig',
@@ -51,11 +55,11 @@ describe('Webapp generator', function () {
 
         assert.file([].concat(
           expected,
-          'app/styles/main.css',
+          'app/styles/main.scss',
           'app/scripts/main.coffee'
         ));
         assert.noFile([
-          'app/styles/main.scss',
+          'app/styles/main.css',
           'app/scripts/main.js'
         ]);
 
@@ -65,14 +69,6 @@ describe('Webapp generator', function () {
           ['app/index.html', /modernizr/],
           ['bower.json', /modernizr/],
           ['package.json', /modernizr/],
-          ['Gruntfile.js', /bootstrap/],
-          ['app/index.html', /bootstrap/],
-          ['bower.json', /bootstrap/],
-          ['Gruntfile.js', /sass/],
-          ['app/index.html', /Sass/],
-          ['.gitignore', /\.sass-cache/],
-          ['package.json', /grunt-contrib-sass/],
-          ['package.json', /grunt-sass/],
           ['Gruntfile.js', /bootstrap-sass-official/],
           ['app/index.html', /Sass is a mature/],
           ['bower.json', /bootstrap-sass-official/]
@@ -101,25 +97,6 @@ describe('Webapp generator', function () {
       });
     });
 
-    it('excludes CoffeeScript files', function (done) {
-      runGen.withOptions(
-        _.extend(options, {coffee: false})
-      ).on('end', function () {
-
-        assert.file([].concat(
-          expected,
-          'app/scripts/main.js'
-        ));
-        assert.noFile('app/scripts/main.coffee');
-
-        assert.fileContent(expectedContent);
-        assert.noFileContent([
-          ['Gruntfile.js', /coffee/]
-        ]);
-        done();
-      });
-    });
-
     it('creates expected modernizr components', function (done) {
       runGen.withOptions(options).withPrompt({features: ['includeModernizr']})
       .on('end', function () {
@@ -135,22 +112,8 @@ describe('Webapp generator', function () {
       });
     });
 
-    it('creates expected bootstrap components', function (done) {
-      runGen.withOptions(options).withPrompt({features: ['includeBootstrap']})
-      .on('end', function () {
-
-        assert.fileContent([
-          ['Gruntfile.js', /bootstrap/],
-          ['app/index.html', /bootstrap/],
-          ['bower.json', /bootstrap/]
-        ]);
-
-        done();
-      });
-    });
-
     it('creates expected ruby SASS components', function (done) {
-      runGen.withOptions(options).withPrompt({features: ['includeSass']})
+      runGen.withOptions(options).withPrompt({features: []})
       .on('end', function () {
 
         assert.fileContent([
@@ -169,28 +132,9 @@ describe('Webapp generator', function () {
       });
     });
 
-    it('creates expected node SASS files', function (done) {
-      runGen.withOptions(options).withPrompt({
-        features: ['includeSass'],
-        libsass: true
-      }).on('end', function () {
-
-        assert.fileContent([
-          ['package.json', /grunt-sass/]
-        ]);
-
-        assert.noFileContent([
-          ['package.json', /grunt-contrib-sass/],
-          ['Gruntfile.js', /bootstrap-sass-official/]
-        ]);
-
-        done();
-      });
-    });
-
     it('creates expected SASS and Bootstrap components', function (done) {
       runGen.withOptions(options).withPrompt({
-        features: ['includeSass', 'includeBootstrap']
+        features: ['includeBootstrap']
       }).on('end', function () {
 
         assert.fileContent([

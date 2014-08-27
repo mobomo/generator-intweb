@@ -43,10 +43,6 @@ module.exports = yeoman.generators.Base.extend({
       name: 'features',
       message: 'What more would you like?',
       choices: [{
-        name: 'Sass',
-        value: 'includeSass',
-        checked: true
-      },{
         name: 'Modernizr',
         value: 'includeModernizr',
         checked: true
@@ -59,17 +55,6 @@ module.exports = yeoman.generators.Base.extend({
         value: 'includeBootstrap',
         checked: false
       }]
-    }, {
-      when: function (answers) {
-        return answers && answers.features &&
-          answers.features.indexOf('includeSass') !== -1;
-      },
-      type: 'confirm',
-      name: 'libsass',
-      value: 'includeLibSass',
-      message: 'Would you like to use libsass? Read up more at \n' +
-        chalk.green('https://github.com/andrew/node-sass#node-sass'),
-      default: false
     }, {
       when: function (answers) {
         return answers && answers.features &&
@@ -90,7 +75,6 @@ module.exports = yeoman.generators.Base.extend({
         return features && features.indexOf(feat) !== -1;
       }
 
-      this.includeSass = hasFeature('includeSass');
       this.includeBootstrap = hasFeature('includeBootstrap');
       this.includeJQuery = hasFeature('includeJQuery') || this.includeBootstrap;
       this.includeModernizr = hasFeature('includeModernizr');
@@ -129,7 +113,7 @@ module.exports = yeoman.generators.Base.extend({
     }
 
     if (this.includeBootstrap) {
-      var bs = 'bootstrap' + (this.includeSass ? '-sass-official' : '');
+      var bs = 'bootstrap-sass-official';
       bower.dependencies[bs] = "~3.2.0";
     }
 
@@ -149,7 +133,7 @@ module.exports = yeoman.generators.Base.extend({
   },
 
   mainStylesheet: function () {
-    var css = 'main.' + (this.includeSass ? 's' : '') + 'css';
+    var css = 'main.scss';
     this.template(css, 'app/styles/' + css);
   },
 
@@ -158,32 +142,6 @@ module.exports = yeoman.generators.Base.extend({
       this.readFileAsString(join(this.sourceRoot(), 'index.html')),
       this
     );
-
-    // wire Bootstrap plugins
-    if (this.includeBootstrap && !this.includeSass) {
-      var bs = 'bower_components/bootstrap/js/';
-
-      this.indexFile = this.appendFiles({
-        html: this.indexFile,
-        fileType: 'js',
-        optimizedPath: 'scripts/plugins.js',
-        sourceFileList: [
-          bs + 'affix.js',
-          bs + 'alert.js',
-          bs + 'dropdown.js',
-          bs + 'tooltip.js',
-          bs + 'modal.js',
-          bs + 'transition.js',
-          bs + 'button.js',
-          bs + 'popover.js',
-          bs + 'carousel.js',
-          bs + 'scrollspy.js',
-          bs + 'collapse.js',
-          bs + 'tab.js'
-        ],
-        searchPath: '.'
-      });
-    }
 
     this.indexFile = this.appendFiles({
       html: this.indexFile,
