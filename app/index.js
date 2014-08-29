@@ -154,7 +154,13 @@ module.exports = yeoman.generators.Base.extend({
 
   app: function () {
     var mkdir = this.mkdir.bind(this),
-        write = this.write.bind(this);
+        write = this.write.bind(this),
+        template  = this.template.bind(this),
+        copyFiles = function (files, dir) {
+          files.forEach(function (file) {
+            template('styles/' + file + '.scss', 'app/styles/' + dir + '/' + file + '.scss');
+          });
+        };
 
     this.directory('app');
     this.mkdir('app/scripts');
@@ -162,10 +168,14 @@ module.exports = yeoman.generators.Base.extend({
     this.mkdir('app/images');
     this.write('app/index.html', this.indexFile);
 
-    ['components', 'core', 'structures'].forEach(function (dir) {
-      mkdir('app/styles/' + dir);
-      write('app/styles/' + dir + '/.gitkeep', '');
-    });
+    this.mkdir('app/styles/core');
+    copyFiles(['_variables', '_base', '_reset', '_helpers'], 'core');
+
+    this.mkdir('app/styles/components');
+    copyFiles(['_card'], 'components');
+
+    this.mkdir('app/styles/structures');
+    this.write('app/styles/structures/.gitkeep', '');
 
     if (this.coffee) {
       this.write(

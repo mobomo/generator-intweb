@@ -1,0 +1,93 @@
+// *************************************
+//
+//   Base
+//   -> Tag-level settings
+//
+// *************************************
+
+html {
+  background: $c-background;
+  color: $c-text;
+  font: {
+    size: $b-font-size;
+    family: $b-font-family;
+  }
+  line-height: $b-line-height;
+}
+
+body {
+  font-size: 100%;
+}
+
+// -------------------------------------
+//   Block Content
+// -------------------------------------
+
+ul, p {
+  margin-top: 0;
+  margin-bottom: $b-space;
+}
+
+li {
+  margin-top: 0;
+  margin-bottom: $b-space-s;
+}
+
+// ----- Headings ----- //
+
+h1, .h1,
+h2, .h2,
+h3, .h3,
+h4, .h4 {
+  margin: {
+    top: 0;
+    bottom: $b-space-xs;
+  }
+  font: {
+    weight: bold;
+    family: $b-font-family-heading;
+  }
+  line-height: 1.2;
+}
+
+h1, .h1 {
+  font-size: 200%;
+}
+
+h2, .h2 {
+  font-size: 150%;
+}
+
+h3, .h3 {
+  font-size: 125%;
+}
+
+h4, .h4 {
+  font-size: 110%;
+}
+
+// -------------------------------------
+//   Inline Content
+// -------------------------------------
+
+// ----- Links ----- //
+
+a {
+  border-bottom: $b-border;
+  color: $c-highlight;
+  text-decoration: none;
+
+  &:hover,
+  &:focus {
+    border-bottom-color: $c-highlight;
+    color: $c-subdue;
+  }
+}
+
+
+// ----- Images ----- //
+
+img {
+  max-width: 100%;
+  height: auto;
+}

@@ -1,0 +1,21 @@
+// *************************************
+//
+//   Card
+//   -> Individual style containers
+//
+// -------------------------------------
+//   Template (Haml)
+// -------------------------------------
+//
+// .card
+//   / ...
+//
+// *************************************
+
+.card {
+  position: relative;
+  padding: $b-space;
+  border-radius: $b-border-radius;
+  background: $c-background-invert;
+  box-shadow: $b-box-shadow;
+}
