@@ -158,7 +158,11 @@ module.exports = yeoman.generators.Base.extend({
         template  = this.template.bind(this),
         copyFiles = function (files, dir) {
           files.forEach(function (file) {
-            template('styles/' + file + '.scss', 'app/styles/' + dir + '/' + file + '.scss');
+            if (file.replace(/^_/, '') == dir) { // if the filename is the same as the directory, it should be an example file
+              template('styles/' + file + '.scss', 'app/styles/' + dir + '/_example.scss');
+            } else {
+              template('styles/' + file + '.scss', 'app/styles/' + dir + '/' + file + '.scss');
+            }
           });
         };
 
@@ -175,7 +179,7 @@ module.exports = yeoman.generators.Base.extend({
     copyFiles(['_card'], 'components');
 
     this.mkdir('app/styles/structures');
-    this.write('app/styles/structures/.gitkeep', '');
+    copyFiles(['_structures'], 'structures');
 
     if (this.coffee) {
       this.write(

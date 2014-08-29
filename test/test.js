@@ -61,12 +61,13 @@ describe('Webapp generator', function () {
           'app/styles/core/_reset.scss',
           'app/styles/core/_helpers.scss',
           'app/styles/components/_card.scss',
-          'app/styles/structures/.gitkeep',
+          'app/styles/structures/_example.scss',
           'app/scripts/application.coffee'
         ));
         assert.noFile([
           'app/styles/application.css',
-          'app/scripts/application.js'
+          'app/scripts/application.js',
+          'app/styles/structures/_structures.scss'
         ]);
 
         assert.fileContent(expectedContent);
